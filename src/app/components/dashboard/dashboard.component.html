@@ -8,9 +8,6 @@
       </li>
     </ul>
     <div class="tab-content m-3">
-        <!-- <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">...</div>
-        <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">...</div>
-        <div class="tab-pane fade" id="contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">...</div> -->
         <app-http-zones *ngIf="currentTab === 'http-zones'"></app-http-zones>
         <app-http-upstreams *ngIf="currentTab === 'http-upstreams'"></app-http-upstreams>
         <app-tcp-udp-zones *ngIf="currentTab === 'tcp-udp-zones'"></app-tcp-udp-zones>
