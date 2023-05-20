@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getData(): void {
-    this.dashboardService.getServerZones().subscribe({
+    this.dashboardService.getHttpServerZones().subscribe({
       next: response => {
         console.log(response);
       },
