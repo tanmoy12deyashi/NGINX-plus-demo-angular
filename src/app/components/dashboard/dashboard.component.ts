@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { TABS } from 'src/app/config/tabs';
 import { DashboardService } from 'src/app/services/dashboard.service';
 
@@ -9,8 +9,9 @@ import { DashboardService } from 'src/app/services/dashboard.service';
 })
 export class DashboardComponent implements OnInit {
   public TABS = TABS;
-  public currentTab: string = 'dashboard';
-  constructor(private dashboardService: DashboardService) { }
+  public currentTab: string = 'http-zones';
+  public zonesData: any = {};
+  constructor(private cdr: ChangeDetectorRef, private dashboardService: DashboardService) { }
 
   ngOnInit(): void {
     this.getData()
@@ -19,7 +20,8 @@ export class DashboardComponent implements OnInit {
   getData(): void {
     this.dashboardService.getHttpServerZones().subscribe({
       next: response => {
-        console.log(response);
+        this.zonesData = response.data;
+        this.cdr.detectChanges(); 
       },
       error: error => {
         console.error(error);
