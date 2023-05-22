@@ -3,7 +3,7 @@
     <h4 class="card-header">Server Zones</h4>
     <div class="card-body">
       <div class="table-responsive">
-        <table class="table table-hover table-responsive">
+        <table class="table table-hover table-bordered text-center">
           <thead class="table-secondary">
             <tr>
               <th scope="col" rowspan="2">Zone</th>
@@ -13,23 +13,23 @@
               <th scope="col" colspan="4">SSL</th>
             </tr>
             <tr>
-              <th scope="col">Current</th>
-              <th scope="col">Total</th>
-              <th scope="col">Req/s</th>
-              <th scope="col">1xx</th>
-              <th scope="col">2xx</th>
-              <th scope="col">3xx</th>
-              <th scope="col">4xx</th>
-              <th scope="col">5xx</th>
-              <th scope="col">Total</th>
-              <th scope="col">Sent/s</th>
-              <th scope="col">Rcvd/s</th>
-              <th scope="col">Sent</th>
-              <th scope="col">Rcvd</th>
-              <th scope="col">Handshakes</th>
-              <th scope="col">Handshakes Failed</th>
-              <th scope="col">Session Reuses</th>
-              <th scope="col">Verify Failures</th>
+              <th scope="col" class="fw-normal">Current</th>
+              <th scope="col" class="fw-normal">Total</th>
+              <th scope="col" class="fw-normal">Req/s</th>
+              <th scope="col" class="fw-normal">1xx</th>
+              <th scope="col" class="fw-normal">2xx</th>
+              <th scope="col" class="fw-normal">3xx</th>
+              <th scope="col" class="fw-normal">4xx</th>
+              <th scope="col" class="fw-normal">5xx</th>
+              <th scope="col" class="fw-normal">Total</th>
+              <th scope="col" class="fw-normal">Sent/s</th>
+              <th scope="col" class="fw-normal">Rcvd/s</th>
+              <th scope="col" class="fw-normal">Sent</th>
+              <th scope="col" class="fw-normal">Rcvd</th>
+              <th scope="col" class="fw-normal">Handshakes</th>
+              <th scope="col" class="fw-normal">Handshakes Failed</th>
+              <th scope="col" class="fw-normal">Session Reuses</th>
+              <th scope="col" class="fw-normal">Verify Failures</th>
 
             </tr>
           </thead>
@@ -68,7 +68,7 @@
     <h4 class="card-header">Location Zones</h4>
     <div class="card-body">
       <div class="table-responsive">
-        <table class="table table-hover table-responsive">
+        <table class="table table-hover table-bordered text-center">
           <thead class="table-secondary">
             <tr>
               <th scope="col" rowspan="2">Zone</th>
@@ -77,18 +77,18 @@
               <th scope="col" colspan="4">Traffic</th>
             </tr>
             <tr>
-              <th scope="col">Total</th>
-              <th scope="col">Req/s</th>
-              <th scope="col">1xx</th>
-              <th scope="col">2xx</th>
-              <th scope="col">3xx</th>
-              <th scope="col">4xx</th>
-              <th scope="col">5xx</th>
-              <th scope="col">Total</th>
-              <th scope="col">Sent/s</th>
-              <th scope="col">Rcvd/s</th>
-              <th scope="col">Sent</th>
-              <th scope="col">Rcvd</th>
+              <th scope="col" class="fw-normal">Total</th>
+              <th scope="col" class="fw-normal">Req/s</th>
+              <th scope="col" class="fw-normal">1xx</th>
+              <th scope="col" class="fw-normal">2xx</th>
+              <th scope="col" class="fw-normal">3xx</th>
+              <th scope="col" class="fw-normal">4xx</th>
+              <th scope="col" class="fw-normal">5xx</th>
+              <th scope="col" class="fw-normal">Total</th>
+              <th scope="col" class="fw-normal">Sent/s</th>
+              <th scope="col" class="fw-normal">Rcvd/s</th>
+              <th scope="col" class="fw-normal">Sent</th>
+              <th scope="col" class="fw-normal">Rcvd</th>
             </tr>
           </thead>
           <tbody>
@@ -109,6 +109,37 @@
               <td>{{data?.traffic?.received_per_sec || 0}}</td>
               <td>{{convertBytes(data?.traffic?.sent) || 0}}</td>
               <td>{{convertBytes(data?.traffic?.reiceived) || 0}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="limit-request card">
+    <h4 class="card-header">Limit Req</h4>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered text-center">
+          <thead class="table-secondary">
+            <tr>
+              <th scope="col">Zone</th>
+              <th scope="col">Passed</th>
+              <th scope="col">Delayed</th>
+              <th scope="col">Rejected</th>
+              <th scope="col">Delayed (dry_run)	</th>
+              <th scope="col">Rejected (dry_run)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of limitReqsData">
+              <th scope="row">{{data.zone}}</th>
+
+              <td>{{data?.passed || 0}}</td>
+              <td>{{data?.delayed || 0}}</td>
+              <td>{{data?.rejected || 0}}</td>
+              <td>{{data?.delayed_dry_run || 0}}</td>
+              <td>{{data?.rejected_dry_run || 0}}</td>
             </tr>
           </tbody>
         </table>

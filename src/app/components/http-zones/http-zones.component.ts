@@ -8,15 +8,16 @@ import { Component, Input, OnInit } from '@angular/core';
 export class HttpZonesComponent implements OnInit {
   @Input() httpZonesData: any
   @Input() locationZonesData: any
+  @Input() limitReqsData: any
   constructor() { }
 
   ngOnInit(): void {
     //console.log(this.zonesData);
   }
 
-  ngOnChanges(): void {
-    console.log(this.httpZonesData);
-  }
+  /* ngOnChanges(): void {
+    //console.log(this.limitReqsData);
+  } */
 
   convertBytes(bytes: number): string {
     if (bytes < 1024) {

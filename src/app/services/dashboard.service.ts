@@ -2,22 +2,30 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, interval } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { APP } from '../config/app'
 
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardService {
+  // get APP
+  private APP = APP;
+  // get url
   private url = environment.apiUrl;
+  // set data subject for every service
   private httpServerZonesDataSubject = new Subject<any>();
-  private streamServerZonesDataSubject = new Subject<any>();
   private locationZonesDataSubject = new Subject<any>();
   private httpUpstreamsDataSubject = new Subject<any>();
+  private streamServerZonesDataSubject = new Subject<any>();
   private streamUpstreamsDataSubject = new Subject<any>();
+  private cachesDataSubject = new Subject<any>();
   private slabDataSubject = new Subject<any>();
+  private limitReqsDataSubject = new Subject<any>();
   private streamZoneSyncDataSubject = new Subject<any>();
   private resolversDataSubject = new Subject<any>();
-  private cachesDataSubject = new Subject<any>();
+  private limitConnsDataSubject = new Subject<any>();
 
+  // set interval subscription
   private intervalSubscription: any;
 
   constructor(private http: HttpClient) {
@@ -29,16 +37,18 @@ export class DashboardService {
   }
 
   private startFetchingData() {
-    this.intervalSubscription = interval(2000).subscribe(() => {
+    this.intervalSubscription = interval(APP.interval).subscribe(() => {
       this.getHttpServerZones();
-      //this.getStreamServerZones();
       this.getLocationZones();
-      /* this.getHttpUpstreams();
-      this.getStreamUpstreams();
-      this.getSlab();
-      this.getStreamZoneSync();
-      this.getResolvers();
-      this.getCaches(); */
+      //this.getHttpUpstreams();
+      //this.getStreamServerZones();
+      //this.getStreamUpstreams();
+      //this.getCaches();
+      //this.getSlab();
+      this.getLimitReqs()
+      //this.getStreamZoneSync();
+      //this.getResolvers();
+      //this.getLimitConns()
     });
   }
 
@@ -57,16 +67,6 @@ export class DashboardService {
   getHttpServerZones() {
     this.http.get<any>(`${this.url}/http/server_zones/`).subscribe((data: any) => {
       this.httpServerZonesDataSubject.next(data);
-    });
-  }
-
-  getStreamServerZonesDataSubject(): Subject<any> {
-    return this.streamServerZonesDataSubject;
-  }
-
-  getStreamServerZones() {
-    this.http.get<any>(`${this.url}/stream/server_zones/`).subscribe((data: any) => {
-      this.streamServerZonesDataSubject.next(data);
     });
   }
 
@@ -90,6 +90,16 @@ export class DashboardService {
     });
   }
 
+  getStreamServerZonesDataSubject(): Subject<any> {
+    return this.streamServerZonesDataSubject;
+  }
+
+  getStreamServerZones() {
+    this.http.get<any>(`${this.url}/stream/server_zones/`).subscribe((data: any) => {
+      this.streamServerZonesDataSubject.next(data);
+    });
+  }
+
   getStreamUpstreamsDataSubject(): Subject<any> {
     return this.streamUpstreamsDataSubject;
   }
@@ -100,6 +110,16 @@ export class DashboardService {
     });
   }
 
+  getCachesDataSubject(): Subject<any> {
+    return this.cachesDataSubject;
+  }
+
+  getCaches() {
+    this.http.get<any>(`${this.url}/http/caches/`).subscribe((data: any) => {
+      this.cachesDataSubject.next(data);
+    });
+  }
+
   getSlabDataSubject(): Subject<any> {
     return this.slabDataSubject;
   }
@@ -107,6 +127,16 @@ export class DashboardService {
   getSlab() {
     this.http.get<any>(`${this.url}/slabs/`).subscribe((data: any) => {
       this.slabDataSubject.next(data);
+    });
+  }
+
+  getLimitReqsDataSubject(): Subject<any> {
+    return this.limitReqsDataSubject;
+  }
+
+  getLimitReqs() {
+    this.http.get<any>(`${this.url}/http/limit_reqs/`).subscribe((data: any) => {
+      this.limitReqsDataSubject.next(data);
     });
   }
 
@@ -130,13 +160,13 @@ export class DashboardService {
     });
   }
 
-  getCachesDataSubject(): Subject<any> {
-    return this.cachesDataSubject;
+  getLimitConnsDataSubject(): Subject<any> {
+    return this.limitConnsDataSubject;
   }
 
-  getCaches() {
-    this.http.get<any>(`${this.url}/http/caches/`).subscribe((data: any) => {
-      this.cachesDataSubject.next(data);
+  getLimitConns() {
+    this.http.get<any>(`${this.url}/http/limit_conns/`).subscribe((data: any) => {
+      this.limitConnsDataSubject.next(data);
     });
   }
 

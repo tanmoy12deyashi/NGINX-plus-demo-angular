@@ -13,6 +13,7 @@ export class DashboardComponent implements OnInit {
   public currentTab: string = 'http-zones';
   public httpZonesData: any = [];
   public locationZonesData: any = [];
+  public limitReqsData: any = [];
 
   constructor(private dashboardService: DashboardService) { }
 
@@ -85,6 +86,23 @@ export class DashboardComponent implements OnInit {
             tableData.push(rowData)
           }
           this.locationZonesData = tableData; 
+        }
+      }
+    });
+
+    this.dashboardService.getLimitReqsDataSubject().subscribe({
+      next: ({status, data}) => {
+        if(status === 'success') {
+          let tableData = []
+          
+          for(let d in data) {
+            let rowData = {
+              zone: d,
+              ...data[d]
+            }
+            tableData.push(rowData)
+          }
+          this.limitReqsData = tableData; 
         }
       }
     });
