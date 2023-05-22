@@ -1,1 +1,103 @@
-<p>http-upstreams works!</p>
+<div class="d-flex flex-column gap-4">
+  <div class="card" *ngFor="let data of httpUpstreamsData">
+    <h4 class="card-header">{{data?.zone}}</h4>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered text-center">
+          <thead class="table-secondary">
+            <tr>
+              <th scope="col" colspan="3">Server</th>
+              <th scope="col" colspan="2">Requests</th>
+              <th scope="col" colspan="5">Responses</th>
+              <th scope="col" colspan="2">Conns</th>
+              <th scope="col" colspan="4">Traffic</th>
+              <th scope="col" colspan="2">Server checks</th>
+              <th scope="col" colspan="4">Health monitors</th>
+              <th scope="col" colspan="2">Response time</th>
+              <th scope="col" colspan="4">SSL</th>
+            </tr>
+            <tr>
+              <th scope="col" class="fw-normal">Name</th>
+              <th scope="col" class="fw-normal">DT</th>
+              <th scope="col" class="fw-normal">W</th>
+
+              <th scope="col" class="fw-normal">Total</th>
+              <th scope="col" class="fw-normal">Req/s</th>
+
+              <th scope="col" class="fw-normal">1xx</th>
+              <th scope="col" class="fw-normal">2xx</th>
+              <th scope="col" class="fw-normal">3xx</th>
+              <th scope="col" class="fw-normal">4xx</th>
+              <th scope="col" class="fw-normal">5xx</th>
+
+              <th scope="col" class="fw-normal">A</th>
+              <th scope="col" class="fw-normal">L</th>
+
+              <th scope="col" class="fw-normal">Sent/s</th>
+              <th scope="col" class="fw-normal">Rcvd/s</th>
+              <th scope="col" class="fw-normal">Sent</th>
+              <th scope="col" class="fw-normal">Rcvd</th>
+
+              <th scope="col" class="fw-normal">Fails</th>
+              <th scope="col" class="fw-normal">Unavail</th>
+
+              <th scope="col" class="fw-normal">Checks</th>
+              <th scope="col" class="fw-normal">Fails</th>
+              <th scope="col" class="fw-normal">Unhealthy</th>
+              <th scope="col" class="fw-normal">Last</th>
+
+              <th scope="col" class="fw-normal">Headers</th>
+              <th scope="col" class="fw-normal">Response</th>
+
+              <th scope="col" class="fw-normal">Handshakes</th>
+              <th scope="col" class="fw-normal">Handshakes Failed</th>
+              <th scope="col" class="fw-normal">Session Reuses</th>
+              <th scope="col" class="fw-normal">Verify Failures</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let peer of data?.peers">
+              <td>{{peer?.server}}</td>
+              <td>{{peer?.downtime}}</td>
+              <td>{{peer?.weight}}</td>
+
+              <td>{{peer?.requests || 0}}</td>
+              <td>{{peer?.requests || 0}}</td>
+
+              <td>{{peer?.responses['1xx'] || 0}}</td>
+              <td>{{peer?.responses['2xx'] || 0}}</td>
+              <td>{{peer?.responses['3xx'] || 0}}</td>
+              <td>{{peer?.responses['4xx'] || 0}}</td>
+              <td>{{peer?.responses['5xx'] || 0}}</td>
+
+              <td>{{peer?.active || 0}}</td>
+              <td>{{peer?.max_conns || '∞'}}</td>
+
+              <td>{{peer?.sent_per_sec || 0}}</td>
+              <td>{{peer?.received_per_sec || 0}}</td>
+              <td>{{convertBytes(peer?.sent) || 0}}</td>
+              <td>{{convertBytes(peer?.received) || 0}}</td>
+
+              <td>{{peer?.fails || 0}}</td>
+              <td>{{peer?.unavail || 0}}</td>
+
+              <td>{{peer?.health_checks?.checks || '-'}}</td>
+              <td>{{peer?.health_checks?.fails || '-'}}</td>
+              <td>{{peer?.health_checks?.unhealthy || '-'}}</td>
+              <td>{{peer?.health_checks?.last_passed || '-'}}</td>
+
+              <td>{{peer?.header_time || 0}}</td>
+              <td>{{peer?.response_time || 0}}</td>
+
+              <td>{{peer?.ssl?.handshakes || '-'}}</td>
+              <td>{{peer?.ssl?.handshakes_failed || '-'}}</td>
+              <td>{{peer?.ssl?.session_reuses || '-'}}</td>
+              <td>{{peer?.ssl?.verify_failures?.expired_cert || '-'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

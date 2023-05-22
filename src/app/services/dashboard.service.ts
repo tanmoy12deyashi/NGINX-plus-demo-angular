@@ -40,13 +40,13 @@ export class DashboardService {
     this.intervalSubscription = interval(APP.interval).subscribe(() => {
       this.getHttpServerZones();
       this.getLocationZones();
-      //this.getHttpUpstreams();
+      this.getHttpUpstreams();
       //this.getStreamServerZones();
       //this.getStreamUpstreams();
       //this.getCaches();
-      //this.getSlab();
+      this.getSlab();
       this.getLimitReqs()
-      //this.getStreamZoneSync();
+      this.getStreamZoneSync();
       //this.getResolvers();
       //this.getLimitConns()
     });

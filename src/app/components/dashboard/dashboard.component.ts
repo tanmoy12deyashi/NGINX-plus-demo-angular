@@ -14,6 +14,12 @@ export class DashboardComponent implements OnInit {
   public httpZonesData: any = [];
   public locationZonesData: any = [];
   public limitReqsData: any = [];
+  public httpUpstreamsData: any = [];
+
+  public instanceStatus: any = {};
+  public clusterZones: any = [];
+
+  public sharedZonesData: any = [];
 
   constructor(private dashboardService: DashboardService) { }
 
@@ -106,7 +112,57 @@ export class DashboardComponent implements OnInit {
         }
       }
     });
+
+    this.dashboardService.getHttpUpstreamsDataSubject().subscribe({
+      next: ({status, data}) => {
+        if(status === 'success') {
+          let tableData = []
+          
+          for(let d in data) {
+            tableData.push(data[d])
+          }
+          this.httpUpstreamsData = tableData; 
+        }
+      }
+    });
+
+    this.dashboardService.getSlabDataSubject().subscribe({
+      next: ({status, data}) => {
+        if(status === 'success') {
+          let tableData = []
+          
+          for(let d in data) {
+            let rowData = {
+              zone: d,
+              ...data[d]
+            }
+            tableData.push(rowData)
+          }
+          this.sharedZonesData = tableData; 
+        }
+      }
+    });
+
+    this.dashboardService.getStreamZoneSyncDataSubject().subscribe({
+      next: ({status, data}) => {
+        if(status === 'success') {
+          this.instanceStatus = data.status;
+
+          let tableData = [];
+          for(let d in data?.zones) {
+            let rowData = {
+              zone: d,
+              ...data?.zones[d]
+            }
+            tableData.push(rowData)
+          }
+          this.clusterZones = tableData; 
+        }
+      }
+    });
   }
+
+
 
   handleTab(tab: string): void {
     // update current tab
