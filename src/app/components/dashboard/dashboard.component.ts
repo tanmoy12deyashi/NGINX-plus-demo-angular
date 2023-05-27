@@ -21,6 +21,10 @@ export class DashboardComponent implements OnInit {
 
   public sharedZonesData: any = [];
 
+  public limitConnsData: any;
+  public tcp_udpZonesData: any = [];
+
+
   constructor(private dashboardService: DashboardService) { }
 
   ngOnInit(): void {
@@ -157,6 +161,39 @@ export class DashboardComponent implements OnInit {
             tableData.push(rowData)
           }
           this.clusterZones = tableData; 
+        }
+      }
+    });
+
+    this.dashboardService.getStreamServerZonesDataSubject().subscribe({
+      next: ({status, data}) => {
+        if(status === 'success') {
+          let tableData = [];
+          for(let d in data) {
+            let rowData = {
+              zone: d,
+              ...data[d]
+            }
+            tableData.push(rowData)
+          }
+          console.log(data, this.tcp_udpZonesData)
+          this.tcp_udpZonesData = tableData; 
+        }
+      }
+    });
+
+    this.dashboardService.getLimitConnsDataSubject().subscribe({
+      next: ({status, data}) => {
+        if(status === 'success') {
+          let tableData = [];
+          for(let d in data) {
+            let rowData = {
+              zone: d,
+              ...data[d]
+            }
+            tableData.push(rowData)
+          }
+          this.limitConnsData = tableData; 
         }
       }
     });

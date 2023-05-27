@@ -41,14 +41,14 @@ export class DashboardService {
       this.getHttpServerZones();
       this.getLocationZones();
       this.getHttpUpstreams();
-      //this.getStreamServerZones();
+      this.getStreamServerZones();
       //this.getStreamUpstreams();
       //this.getCaches();
       this.getSlab();
       this.getLimitReqs()
       this.getStreamZoneSync();
       //this.getResolvers();
-      //this.getLimitConns()
+      this.getLimitConns()
     });
   }
 
@@ -165,7 +165,7 @@ export class DashboardService {
   }
 
   getLimitConns() {
-    this.http.get<any>(`${this.url}/http/limit_conns/`).subscribe((data: any) => {
+    this.http.get<any>(`${this.url}/stream/limit_conns/`).subscribe((data: any) => {
       this.limitConnsDataSubject.next(data);
     });
   }

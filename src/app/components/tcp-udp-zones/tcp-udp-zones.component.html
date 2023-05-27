@@ -1,1 +1,89 @@
-<p>tcp-udp-zones works!</p>
+<div class="d-flex flex-column gap-4">
+  <div class="server-zones card">
+    <h4 class="card-header">Server Zones</h4>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered text-center">
+          <thead class="table-secondary">
+            <tr>
+              <th scope="col" rowspan="2">Zone</th>
+              <th scope="col" colspan="3">Connections</th>
+              <th scope="col" colspan="4">Sessions</th>
+              <th scope="col" colspan="4">Traffic</th>
+              <th scope="col" colspan="4">SSL</th>
+            </tr>
+            <tr>
+              <th scope="col" class="fw-normal">Current</th>
+              <th scope="col" class="fw-normal">Total</th>
+              <th scope="col" class="fw-normal">Conn/s</th>
+              <th scope="col" class="fw-normal">2xx</th>
+              <th scope="col" class="fw-normal">4xx</th>
+              <th scope="col" class="fw-normal">5xx</th>
+              <th scope="col" class="fw-normal">Total</th>
+              <th scope="col" class="fw-normal">Sent/s</th>
+              <th scope="col" class="fw-normal">Rcvd/s</th>
+              <th scope="col" class="fw-normal">Sent</th>
+              <th scope="col" class="fw-normal">Rcvd</th>
+              <th scope="col" class="fw-normal">Handshakes</th>
+              <th scope="col" class="fw-normal">Handshakes Failed</th>
+              <th scope="col" class="fw-normal">Session Reuses</th>
+              <th scope="col" class="fw-normal">Verify Failures</th>
+
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of tcp_udpZonesData">
+              <th scope="row">{{data.zone}}</th>
+
+              <td>{{data?.requests?.current || 0}}</td>
+              <td>{{data?.connections || 0}}</td>
+              <td>{{data?.requests?.request_per_sec || 0}}</td>
+
+              <td>{{data?.sessions['2xx'] || 0}}</td>
+              <td>{{data?.sessions['4xx'] || 0}}</td>
+              <td>{{data?.sessions['5xx'] || 0}}</td>
+              <td>{{data?.sessions?.total || 0}}</td>
+
+              <td>{{data?.traffic?.sent_per_sec || 0}}</td>
+              <td>{{data?.traffic?.received_per_sec || 0}}</td>
+              <td>{{convertBytes(data?.sent) || 0}}</td>
+              <td>{{convertBytes(data?.received) || 0}}</td>
+
+              <td>{{data?.ssl?.handshakes || '-'}}</td>
+              <td>{{data?.ssl?.handshakes_failed || '-'}}</td>
+              <td>{{data?.ssl?.session_reuses || '-'}}</td>
+              <td>{{data?.ssl?.verify_failures?.expired_cert || '-'}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="limit-request card">
+    <h4 class="card-header">Limit Conn</h4>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered text-center">
+          <thead class="table-secondary">
+            <tr>
+              <th scope="col">Zone</th>
+              <th scope="col">Passed</th>
+              <th scope="col">Rejected</th>
+              <th scope="col">Rejected (dry_run)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of limitConnsData">
+              <th scope="row">{{data.zone}}</th>
+
+              <td>{{data?.passed || 0}}</td>
+              <td>{{data?.rejected || 0}}</td>
+              <td>{{data?.rejected_dry_run || 0}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
