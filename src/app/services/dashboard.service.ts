@@ -47,7 +47,7 @@ export class DashboardService {
       this.getSlab();
       this.getLimitReqs()
       this.getStreamZoneSync();
-      //this.getResolvers();
+      this.getResolvers();
       this.getLimitConns()
     });
   }

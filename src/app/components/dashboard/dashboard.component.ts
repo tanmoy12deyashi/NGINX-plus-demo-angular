@@ -1,5 +1,6 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { interval, Subject, switchMap } from 'rxjs';
+
 import { TABS } from 'src/app/config/tabs';
 import { DashboardService } from 'src/app/services/dashboard.service';
 
@@ -23,7 +24,7 @@ export class DashboardComponent implements OnInit {
 
   public limitConnsData: any;
   public tcp_udpZonesData: any = [];
-
+  public resolversData: any;
 
   constructor(private dashboardService: DashboardService) { }
 
@@ -36,7 +37,7 @@ export class DashboardComponent implements OnInit {
       return bytes + " B";
     } else if (bytes < (1024 * 1024)) {
       return (bytes / 1024).toFixed(2) + " KB";
-    } else if(bytes < (1024 * 1024 * 1024)) {
+    } else if (bytes < (1024 * 1024 * 1024)) {
       return (bytes / (1024 * 1024)).toFixed(2) + " MB";
     } else {
       return (bytes / (1024 * 1024 * 1024)).toFixed(2) + " GB";
@@ -45,14 +46,14 @@ export class DashboardComponent implements OnInit {
 
   getData(): void {
     this.dashboardService.getHttpServerZonesDataSubject().subscribe({
-      next: ({status, data}) => {
-        if(status === 'success') {
+      next: ({ status, data }) => {
+        if (status === 'success') {
           let tableData = []
-          
-          for(let d in data) {
+
+          for (let d in data) {
             let rowData = {
               zone: d,
-              requests:{
+              requests: {
                 current: data[d].processing,
                 total: data[d].requests,
                 request_per_sec: 0
@@ -74,14 +75,14 @@ export class DashboardComponent implements OnInit {
     });
 
     this.dashboardService.getLocationZonesDataSubject().subscribe({
-      next: ({status, data}) => {
-        if(status === 'success') {
+      next: ({ status, data }) => {
+        if (status === 'success') {
           let tableData = []
-          
-          for(let d in data) {
+
+          for (let d in data) {
             let rowData = {
               zone: d,
-              requests:{
+              requests: {
                 total: data[d].requests,
                 request_per_sec: 0
               },
@@ -95,105 +96,121 @@ export class DashboardComponent implements OnInit {
             }
             tableData.push(rowData)
           }
-          this.locationZonesData = tableData; 
+          this.locationZonesData = tableData;
         }
       }
     });
 
     this.dashboardService.getLimitReqsDataSubject().subscribe({
-      next: ({status, data}) => {
-        if(status === 'success') {
+      next: ({ status, data }) => {
+        if (status === 'success') {
           let tableData = []
-          
-          for(let d in data) {
+
+          for (let d in data) {
             let rowData = {
               zone: d,
               ...data[d]
             }
             tableData.push(rowData)
           }
-          this.limitReqsData = tableData; 
+          this.limitReqsData = tableData;
         }
       }
     });
 
     this.dashboardService.getHttpUpstreamsDataSubject().subscribe({
-      next: ({status, data}) => {
-        if(status === 'success') {
+      next: ({ status, data }) => {
+        if (status === 'success') {
           let tableData = []
-          
-          for(let d in data) {
+
+          for (let d in data) {
             tableData.push(data[d])
           }
-          this.httpUpstreamsData = tableData; 
+          this.httpUpstreamsData = tableData;
         }
       }
     });
 
     this.dashboardService.getSlabDataSubject().subscribe({
-      next: ({status, data}) => {
-        if(status === 'success') {
+      next: ({ status, data }) => {
+        if (status === 'success') {
           let tableData = []
-          
-          for(let d in data) {
+
+          for (let d in data) {
             let rowData = {
               zone: d,
               ...data[d]
             }
             tableData.push(rowData)
           }
-          this.sharedZonesData = tableData; 
+          this.sharedZonesData = tableData;
         }
       }
     });
 
     this.dashboardService.getStreamZoneSyncDataSubject().subscribe({
-      next: ({status, data}) => {
-        if(status === 'success') {
+      next: ({ status, data }) => {
+        if (status === 'success') {
           this.instanceStatus = data.status;
 
           let tableData = [];
-          for(let d in data?.zones) {
+          for (let d in data?.zones) {
             let rowData = {
               zone: d,
               ...data?.zones[d]
             }
             tableData.push(rowData)
           }
-          this.clusterZones = tableData; 
+          this.clusterZones = tableData;
         }
       }
     });
 
     this.dashboardService.getStreamServerZonesDataSubject().subscribe({
-      next: ({status, data}) => {
-        if(status === 'success') {
+      next: ({ status, data }) => {
+        if (status === 'success') {
           let tableData = [];
-          for(let d in data) {
+          for (let d in data) {
             let rowData = {
               zone: d,
               ...data[d]
             }
             tableData.push(rowData)
           }
-          console.log(data, this.tcp_udpZonesData)
-          this.tcp_udpZonesData = tableData; 
+          this.tcp_udpZonesData = tableData;
         }
       }
     });
 
     this.dashboardService.getLimitConnsDataSubject().subscribe({
-      next: ({status, data}) => {
-        if(status === 'success') {
+      next: ({ status, data }) => {
+        if (status === 'success') {
           let tableData = [];
-          for(let d in data) {
+          for (let d in data) {
             let rowData = {
               zone: d,
               ...data[d]
             }
             tableData.push(rowData)
           }
-          this.limitConnsData = tableData; 
+          this.limitConnsData = tableData;
+        }
+      }
+    });
+
+    this.dashboardService.getResolversDataSubject().subscribe({
+      next: ({ status, data }) => {
+        if (status === 'success') {
+          console.log(data)
+          let tableData = [];
+          for (let d in data) {
+            let rowData = {
+              zone: d,
+              ...data[d]
+            }
+            tableData.push(rowData)
+          }
+          this.resolversData = tableData;
         }
       }
     });

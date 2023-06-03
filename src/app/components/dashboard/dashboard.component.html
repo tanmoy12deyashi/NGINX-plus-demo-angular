@@ -8,6 +8,7 @@
           *ngIf="tab.show">{{tab.label}}</button>
       </li>
     </ul>
+
     <div class="tab-content my-3">
       <app-http-zones [httpZonesData]="httpZonesData" [locationZonesData]="locationZonesData" [limitReqsData]="limitReqsData" *ngIf="currentTab === 'http-zones'"></app-http-zones>
       <app-http-upstreams [httpUpstreamsData]="httpUpstreamsData" *ngIf="currentTab === 'http-upstreams'"></app-http-upstreams>
@@ -15,7 +16,7 @@
       <app-caches *ngIf="currentTab === 'caches'"></app-caches>
       <app-shared-zones [sharedZonesData]="sharedZonesData" *ngIf="currentTab === 'shared-zones'"></app-shared-zones>
       <app-cluster [instanceStatus]="instanceStatus" [clusterZones]="clusterZones" *ngIf="currentTab === 'cluster'"></app-cluster>
-      <app-resolvers *ngIf="currentTab === 'resolvers'"></app-resolvers>
+      <app-resolvers [resolversData]="resolversData" *ngIf="currentTab === 'resolvers'"></app-resolvers>
     </div>
   </div>
 </div>

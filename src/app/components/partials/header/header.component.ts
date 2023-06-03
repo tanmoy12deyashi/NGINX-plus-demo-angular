@@ -6,10 +6,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  displayDialog = true;
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  showDialog() {
+    console.log(this.displayDialog)
+    this.displayDialog = true;
+  }
+
+  hideDialog() {
+    this.displayDialog = false;
   }
 
 }
