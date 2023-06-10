@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { DialogService } from 'primeng/dynamicdialog';
+import { SettingsComponent } from '../../popups/settings/settings.component';
 
 @Component({
   selector: 'app-header',
@@ -8,18 +10,22 @@ import { Component, OnInit } from '@angular/core';
 export class HeaderComponent implements OnInit {
   displayDialog = true;
 
-  constructor() { }
+  constructor(private dialogService: DialogService) { }
 
   ngOnInit(): void {
   }
 
-  showDialog() {
-    console.log(this.displayDialog)
-    this.displayDialog = true;
-  }
-
-  hideDialog() {
-    this.displayDialog = false;
+  openModal() {
+    const ref = this.dialogService.open(SettingsComponent, {
+      header: 'Options',
+      width: 'auto',
+      data: { /* optional data to pass to the modal component */ }
+    });
+  
+    ref.onClose.subscribe((result: any) => {
+      // Handle modal close event
+      console.log('Modal closed:', result);
+    });
   }
 
 }

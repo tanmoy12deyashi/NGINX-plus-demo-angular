@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { DialogService } from 'primeng/dynamicdialog';
 import { DialogModule } from 'primeng/dialog';
 
 import { HttpClientModule} from '@angular/common/http'
@@ -19,6 +21,7 @@ import { CachesComponent } from './components/caches/caches.component';
 import { SharedZonesComponent } from './components/shared-zones/shared-zones.component';
 import { ClusterComponent } from './components/cluster/cluster.component';
 import { ResolversComponent } from './components/resolvers/resolvers.component';
+import { SettingsComponent } from './components/popups/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +36,8 @@ import { ResolversComponent } from './components/resolvers/resolvers.component';
     CachesComponent,
     SharedZonesComponent,
     ClusterComponent,
-    ResolversComponent
+    ResolversComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,9 @@ import { ResolversComponent } from './components/resolvers/resolvers.component';
     BrowserAnimationsModule,
     DialogModule
   ],
-  providers: [],
+  providers: [
+    DialogService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

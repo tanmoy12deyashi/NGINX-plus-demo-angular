@@ -1,0 +1,48 @@
+<!-- <p-dialog header="My Dialog" [(visible)]="displayDialog" [modal]="true">
+  <p>Dialog content goes here.</p>
+  <button (click)="hideDialog()">Close</button>
+</p-dialog> -->
+
+<div class="py-1">
+  <div class="row mb-3">
+    <div class="d-flex">
+      <span>Update Every</span>
+      <input class="form-control w-auto mx-2" type="number" name="">
+      <span>sec</span>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="d-flex">
+      <span>4xx warnings threshold</span>
+      <input class="form-control w-auto mx-2" type="number" name="">
+      <span>%</span>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="d-flex">
+      <span>Calculate hit ratio for the past</span>
+      <input class="form-control w-auto mx-2" type="number" name="">
+      <span>sec</span>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="d-flex">
+      <span>Non synced data threshold</span>
+      <input class="form-control w-auto mx-2" type="number" name="">
+      <span>%</span>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="d-flex">
+      <span>Resolver errors threshold</span>
+      <input class="form-control w-auto mx-2" type="number" name="">
+      <span>%</span>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="d-flex justify-content-end">
+      <input class="btn btn-success" type="button" value="Save">
+      <input class="btn btn-secondary ms-2" type="button" value="Cancel" p-dialog-close="true">
+    </div>
+  </div>
+</div>
