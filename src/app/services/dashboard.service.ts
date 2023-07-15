@@ -43,7 +43,7 @@ export class DashboardService {
       this.getHttpUpstreams();
       this.getStreamServerZones();
       //this.getStreamUpstreams();
-      //this.getCaches();
+      this.getCaches();
       this.getSlab();
       this.getLimitReqs()
       this.getStreamZoneSync();

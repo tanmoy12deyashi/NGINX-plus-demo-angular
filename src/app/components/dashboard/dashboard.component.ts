@@ -26,6 +26,8 @@ export class DashboardComponent implements OnInit {
   public tcp_udpZonesData: any = [];
   public resolversData: any;
 
+  public cacheData: any;
+
   constructor(private dashboardService: DashboardService) { }
 
   ngOnInit(): void {
@@ -201,7 +203,7 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.getResolversDataSubject().subscribe({
       next: ({ status, data }) => {
         if (status === 'success') {
-          console.log(data)
+          //console.log(data)
           let tableData = [];
           for (let d in data) {
             let rowData = {
@@ -211,6 +213,23 @@ export class DashboardComponent implements OnInit {
             tableData.push(rowData)
           }
           this.resolversData = tableData;
+        }
+      }
+    });
+
+    this.dashboardService.getCachesDataSubject().subscribe({
+      next: ({ status, data }) => {
+        if (status === 'success') {
+          console.log(data)
+          let tableData = [];
+          for (let d in data) {
+            let rowData = {
+              zone: d,
+              ...data[d]
+            }
+            tableData.push(rowData)
+          }
+          this.cacheData = tableData;
         }
       }
     });

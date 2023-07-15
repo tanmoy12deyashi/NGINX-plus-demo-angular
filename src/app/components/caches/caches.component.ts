@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-caches',
@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./caches.component.css']
 })
 export class CachesComponent implements OnInit {
-
+  @Input() cacheData: any;
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.cacheData)
   }
 
 }
