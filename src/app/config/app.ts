@@ -1,3 +1,3 @@
 export const APP = {
-  interval: 2000
+  interval: 10000
 }

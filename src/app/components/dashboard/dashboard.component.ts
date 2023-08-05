@@ -34,18 +34,6 @@ export class DashboardComponent implements OnInit {
     this.getData()
   }
 
-  convertBytes(bytes: number): string {
-    if (bytes < 1024) {
-      return bytes + " B";
-    } else if (bytes < (1024 * 1024)) {
-      return (bytes / 1024).toFixed(2) + " KB";
-    } else if (bytes < (1024 * 1024 * 1024)) {
-      return (bytes / (1024 * 1024)).toFixed(2) + " MB";
-    } else {
-      return (bytes / (1024 * 1024 * 1024)).toFixed(2) + " GB";
-    }
-  }
-
   getData(): void {
     this.dashboardService.getHttpServerZonesDataSubject().subscribe({
       next: ({ status, data }) => {
@@ -220,7 +208,6 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.getCachesDataSubject().subscribe({
       next: ({ status, data }) => {
         if (status === 'success') {
-          console.log(data)
           let tableData = [];
           for (let d in data) {
             let rowData = {

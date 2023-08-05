@@ -2,10 +2,10 @@ export function convertBytes(bytes: number) {
   if (bytes < 1024) {
     return bytes + " B";
   } else if (bytes < (1024 * 1024)) {
-    return (bytes / 1024).toFixed(2) + " KB";
+    return  Math.round((bytes / 1024) * 100) / 100 + " KB";
   } else if (bytes < (1024 * 1024 * 1024)) {
-    return (bytes / (1024 * 1024)).toFixed(2) + " MB";
+    return Math.round((bytes / (1024 * 1024) * 10)) / 10 + " MB";
   } else {
-    return (bytes / (1024 * 1024 * 1024)).toFixed(2) + " GB";
+    return Math.round((bytes / (1024 * 1024 * 1024)) * 10) / 10 + " GB";
   }
 }

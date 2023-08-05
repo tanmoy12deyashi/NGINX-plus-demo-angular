@@ -1,1 +1,44 @@
-<p>caches works!</p>
+<div class="d-flex flex-column gap-4">
+  <div class="resolvers card">
+    <h4 class="card-header">Location Zones</h4>
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered text-center">
+          <thead class="table-secondary">
+            <tr>
+              <th scope="col" rowspan="2">Zone</th>
+              <th scope="col" rowspan="2">State</th>
+              <th scope="col" rowspan="2">Memory usage</th>
+              <th scope="col" rowspan="2">Max size</th>
+              <th scope="col" rowspan="2">Used</th>
+              <th scope="col" rowspan="2">Disk usage</th>
+              <th scope="col" colspan="3">Traffic</th>
+              <th scope="col" rowspan="2">Hit ratio</th>
+            </tr>
+            <tr>
+              <th scope="col" class="fw-normal">Served</th>
+              <th scope="col" class="fw-normal">Written</th>
+              <th scope="col" class="fw-normal">Bypased</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let data of cacheData">
+              <th scope="row">{{data.zone}}</th>
+
+              <td><i class="fas" [ngClass]="{'fa-moon': data?.cold, 'fa-sun' : !data?.cold }"></i></td>
+              <td>{{getMemoryUsage(data?.pages)}} <br/> (Used {{data?.pages?.used || 0}}), (Free {{data?.pages?.free || 0}})</td>
+              <td>{{convertBytes(data?.max_size || 0)}}</td>
+              <td>{{convertBytes(data?.size || 0)}}</td>
+
+              <td>{{getDiskUsage(data?.size || 0, data?.max_size || 0)}}</td>
+              <td>{{convertBytes(data?.hit?.bytes) || 0}}</td>
+              <td>{{convertBytes(data?.expired?.bytes_written) || 0}}</td>
+              <td> - </td>
+              <td> - </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

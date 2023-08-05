@@ -13,7 +13,7 @@
       <app-http-zones [httpZonesData]="httpZonesData" [locationZonesData]="locationZonesData" [limitReqsData]="limitReqsData" *ngIf="currentTab === 'http-zones'"></app-http-zones>
       <app-http-upstreams [httpUpstreamsData]="httpUpstreamsData" *ngIf="currentTab === 'http-upstreams'"></app-http-upstreams>
       <app-tcp-udp-zones [tcp_udpZonesData]="tcp_udpZonesData" [limitConnsData]="limitConnsData" *ngIf="currentTab === 'tcp-udp-zones'"></app-tcp-udp-zones>
-      <app-caches *ngIf="currentTab === 'caches'" [cacheData]="cacheData"></app-caches>
+      <app-caches *ngIf="currentTab === 'caches'" [cacheData]="cacheData" [sharedZonesData]="sharedZonesData"></app-caches>
       <app-shared-zones [sharedZonesData]="sharedZonesData" *ngIf="currentTab === 'shared-zones'"></app-shared-zones>
       <app-cluster [instanceStatus]="instanceStatus" [clusterZones]="clusterZones" *ngIf="currentTab === 'cluster'"></app-cluster>
       <app-resolvers [resolversData]="resolversData" *ngIf="currentTab === 'resolvers'"></app-resolvers>

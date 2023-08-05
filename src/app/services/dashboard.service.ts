@@ -29,6 +29,7 @@ export class DashboardService {
   private intervalSubscription: any;
 
   constructor(private http: HttpClient) {
+    this.fetchDataAfterPageLoaded();
     this.startFetchingData();
   }
 
@@ -36,20 +37,28 @@ export class DashboardService {
     this.intervalSubscription.unsubscribe();
   }
 
+  private fetchDataAfterPageLoaded() {
+    this.subscribedAPI();
+  }
+
   private startFetchingData() {
     this.intervalSubscription = interval(APP.interval).subscribe(() => {
-      this.getHttpServerZones();
-      this.getLocationZones();
-      this.getHttpUpstreams();
-      this.getStreamServerZones();
-      //this.getStreamUpstreams();
-      this.getCaches();
-      this.getSlab();
-      this.getLimitReqs()
-      this.getStreamZoneSync();
-      this.getResolvers();
-      this.getLimitConns()
+      this.subscribedAPI();
     });
+  }
+
+  private subscribedAPI() {
+    this.getHttpServerZones();
+    this.getLocationZones();
+    this.getHttpUpstreams();
+    this.getStreamServerZones();
+    //this.getStreamUpstreams();
+    this.getCaches();
+    this.getSlab();
+    this.getLimitReqs()
+    this.getStreamZoneSync();
+    this.getResolvers();
+    this.getLimitConns();
   }
 
   private pauseFetchingData() {
