@@ -10,7 +10,6 @@ export class SharedZonesComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.sharedZonesData)
   }
 
   getMemoryUsage(data: {free: number, used: number}): number {

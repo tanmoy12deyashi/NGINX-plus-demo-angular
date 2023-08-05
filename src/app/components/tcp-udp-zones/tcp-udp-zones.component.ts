@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { convertBytes } from 'src/app/libs/byteConvertion';
 
 @Component({
   selector: 'app-tcp-udp-zones',
@@ -7,23 +8,11 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class TcpUdpZonesComponent implements OnInit {
   @Input() tcp_udpZonesData: any = [];
-  @Input() limitConnsData: any = {}
+  @Input() limitConnsData: any = {};
+  convertBytes: Function = convertBytes;
+
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.tcp_udpZonesData, this.limitConnsData)
   }
-
-  convertBytes(bytes: number): string {
-    if (bytes < 1024) {
-      return bytes + " B";
-    } else if (bytes < (1024 * 1024)) {
-      return (bytes / 1024).toFixed(2) + " KB";
-    } else if(bytes < (1024 * 1024 * 1024)) {
-      return (bytes / (1024 * 1024)).toFixed(2) + " MB";
-    } else {
-      return (bytes / (1024 * 1024 * 1024)).toFixed(2) + " GB";
-    }
-  }
-
 }

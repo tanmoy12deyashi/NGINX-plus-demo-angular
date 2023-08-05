@@ -191,7 +191,6 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.getResolversDataSubject().subscribe({
       next: ({ status, data }) => {
         if (status === 'success') {
-          //console.log(data)
           let tableData = [];
           for (let d in data) {
             let rowData = {

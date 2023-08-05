@@ -10,11 +10,8 @@ export class CachesComponent implements OnInit {
   @Input() cacheData: any = [];
   @Input() sharedZonesData: any;
   convertBytes: Function = convertBytes;
-  constructor() {
-  }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges) {
     this.cacheData.forEach((cache: any) => {
